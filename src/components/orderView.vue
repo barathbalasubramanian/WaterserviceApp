@@ -1,4 +1,5 @@
 <template>
+<div>
     <form>
         <div>
             <label >Name</label>
@@ -12,20 +13,33 @@
             <button @click="writeUserData(order.customername,order.count)">order</button>
         </div>
     </form>
+
+    <div v-if="active">
+        <div v-for="( data, id ) in this.orderDetails" :key= 'id'>
+            <div v-for='( i , index) in data' :key="index"> 
+                <div>{{i.name}}</div>
+                <div>{{i.count}}</div>
+            </div>
+        </div>
+    </div>
+
+</div>
 </template>
 
 <script>
 
-import { ref, set } from "firebase/database";
-import { db , auth} from "../firebase"
+import { ref, set , child, get} from "firebase/database";
+import { db , auth , dbref } from "../firebase"
 import { onAuthStateChanged } from "firebase/auth";
+
 
 export default {
     
     data() {
         return{
             order : {customername : '' , count : ''},
-            email : ''
+            orderDetails : [],
+            active : false
         }
     },
     mounted : function() {
@@ -51,14 +65,32 @@ export default {
             onAuthStateChanged(auth, (user) => {
                 if (user) {
                     const uid = user.email;
-                    this.email = uid.split('@')[0]
+                    let email = uid.split('@')[0]
+                    this.getData(email)
                 } else {
                   console.log("Can't get user e-mail")
                 }
             });
+        },
+
+    async getData(email) {
+            
+            await get(child(dbref, email+'/' )).then((snapshot) => {
+            if (snapshot.exists()) {
+                console.log(snapshot.val());
+                this.orderDetails.push(snapshot.val())
+                console.log(this.orderDetails)
+                this.active = true
+            } else {
+                console.log("No data available");
+            }
+            }).catch((error) => {
+            console.error(error);
+            });
         }
     }
 }
+
 </script>
 
 <style scoped>

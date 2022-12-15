@@ -25,6 +25,7 @@ export const auth = getAuth();
 
 // Realtime database
 export const db = getDatabase(app);
+export const dbref = ref(getDatabase());
 
 
 // firestore database
