@@ -16,11 +16,78 @@
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;1,200&display=swap');
-
+    .header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2em;
+        background-color: #242424;
+        color: white;
+        padding: 7px 0 10px 0;
+    }
     body {
         margin: 0;
         font-family: 'Poppins';
         background-color: #242424;
+    }
+    form{
+        margin: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    .form {
+        padding: 8px 0;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        column-gap: 20px;
+    }
+    .form label {
+        display: flex;
+        margin: 1px 0 0 0;
+        align-items: center;
+        color: rgb(107, 105, 105);
+    }
+    .form input {
+        border: none;
+        border-bottom: 2px solid #5f89df;
+        width: 14em;
+        outline : none;
+        font-size: 20px;
+        background: none;
+        color: #fff;
+    }
+    .form button, .view-btn button , .order-btn button {
+        width: 40%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        margin: 15px auto;
+        padding: 10px 15px;
+        font-size: 20px;
+        border-radius: 50vh;
+        background-color: #5f89df;
+        border: none;
+        outline:none;
+        color: #232323;
+        opacity: 1;
+        z-index: 10;
+    }
+    .count {
+        display: flex;
+        width: 90%;
+        align-items: center;
+        justify-content: space-between;
+        margin: 14px auto;
+    }
+    .count button{
+        width: 2em;
+        border: none;
+        border-radius: 1px;
+        color: #5f89df;
+        background: none;
+        margin: 0;
     }
     
 </style>

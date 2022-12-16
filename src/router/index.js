@@ -26,7 +26,7 @@ const routes = [
     component : customerView
   },
   {
-    path : '/customer/:customerid',
+    path : '/customer/:id',
     component : UpdateorderView
   }
 ]

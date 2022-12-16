@@ -11,7 +11,7 @@
                     </label>
                 </div>
                 <div> 
-                    <input type="text" v-model='order.customername' required>
+                    <input type="text" v-model='order.customername' >
                 </div>
             </div>
             <div class='form'>
@@ -21,7 +21,7 @@
                     </label>
                 </div>
                 <div>
-                    <input type="text" v-model="order.address" required>
+                    <input type="text" v-model="order.address" >
                 </div>
             </div>
             <div class='form'>
@@ -31,7 +31,7 @@
                     </label>
                 </div>
                 <div>
-                    <input type="number" v-model="order.ph_num" required>
+                    <input type="number" v-model="order.ph_num" >
                 </div>
             </div>
             <div class='form count'>
@@ -40,7 +40,7 @@
                 <button @click="add()"><span class="material-symbols-outlined">add</span></button>
             </div>
             <div class='form'>
-                <button @click="writeUserData(order.customername,order.address,order.ph_num,this.count)">order</button>
+                <button @click="writeUserData(order.customername,order.address,order.ph_num,this.count)">Order</button>
             </div>
         </form>
         <div class="view-btn"><button @click="view()">VIEW ORDER</button></div>
@@ -181,65 +181,6 @@ export default {
     }
     .header-order {
         position: initial;
-    }
-    form{
-        margin: 20px;
-        display: flex;
-        flex-direction: column;
-    }
-    .form {
-        padding: 8px 0;
-        display: flex;
-        align-items: center;
-        flex-direction: row;
-        column-gap: 20px;
-    }
-    .form label {
-        display: flex;
-        margin: 1px 0 0 0;
-        align-items: center;
-        color: rgb(107, 105, 105);
-    }
-    .form input {
-        border: none;
-        border-bottom: 2px solid #5f89df;
-        width: 14em;
-        outline : none;
-        font-size: 20px;
-        background: none;
-        color: #fff;
-    }
-    .form button, .view-btn button , .order-btn button {
-        width: 40%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: auto;
-        margin: 15px auto;
-        padding: 10px 15px;
-        font-size: 20px;
-        border-radius: 50vh;
-        background-color: #5f89df;
-        border: none;
-        outline:none;
-        color: #232323;
-        opacity: 1;
-        z-index: 10;
-    }
-    .count {
-        display: flex;
-        width: 90%;
-        align-items: center;
-        justify-content: space-between;
-        margin: 14px auto;
-    }
-    .count button{
-        width: 2em;
-        border: none;
-        border-radius: 1px;
-        color: #5f89df;
-        background: none;
-        margin: 0;
     }
     .view-btn , .order-btn{
         position: fixed;
