@@ -40,7 +40,6 @@ export default {
   },
   methods: {
     signin(){
-      console.log('vanthuten')
       signInWithEmailAndPassword(auth, this.form.email, this.form.password)
       .then((userCredential) => {
         const user = userCredential.user;
