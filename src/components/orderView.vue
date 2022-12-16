@@ -2,7 +2,7 @@
 <div>
                                     <!----------------- ORDER ---------------->
     <div v-if="activeOrder"> 
-        <div class="header">Order Here</div>
+        <div class="header header-order">Order Here</div>
         <form>
             <div class='form'>
                 <div>
@@ -11,7 +11,7 @@
                     </label>
                 </div>
                 <div> 
-                    <input type="text" v-model='order.customername'>
+                    <input type="text" v-model='order.customername' required>
                 </div>
             </div>
             <div class='form'>
@@ -21,7 +21,7 @@
                     </label>
                 </div>
                 <div>
-                    <input type="text" v-model="order.address">
+                    <input type="text" v-model="order.address" required>
                 </div>
             </div>
             <div class='form'>
@@ -31,12 +31,12 @@
                     </label>
                 </div>
                 <div>
-                    <input type="number" v-model="order.ph_num">
+                    <input type="number" v-model="order.ph_num" required>
                 </div>
             </div>
             <div class='form count'>
                 <button @click="subtract()"><span class="material-symbols-outlined">remove</span></button>
-                <div id="count">{{ this.count }}</div>
+                <div id="count" style="color: #fff">{{ this.count }}</div>
                 <button @click="add()"><span class="material-symbols-outlined">add</span></button>
             </div>
             <div class='form'>
@@ -51,11 +51,13 @@
         <div class="header">Your Order</div>
         <div v-for="( data, id ) in this.orderDetails" :key= 'id'  class="main-div">
             <div v-for='( i , index) in data' :key="index" class="sub-div"> 
-                <span class="material-symbols-outlined edit">edit</span>
+
+                <router-link :to='`/customer/${index}`'><span class="material-symbols-outlined edit" style="color: #fff">edit</span></router-link>
                 <div style="color: #1a87f4">{{i.name}}</div>
                 <div style="width: 12em;">{{i.address}}</div>
                 <div>{{i.ph_num}}</div>
                 <div class="orders">{{i.count}}</div>
+
             </div>
         </div>
         <div class="order-btn"><button @click="Order()">Place Order</button></div>
@@ -160,9 +162,6 @@ export default {
 </script>
 
 <style scoped>
-html, body {
-    background-color: #242424;
-}
     *::-webkit-scrollbar {
         display: none;
     }
@@ -179,6 +178,9 @@ html, body {
         left: 0;
         z-index: 10;
         width: 100vw;
+    }
+    .header-order {
+        position: initial;
     }
     form{
         margin: 20px;
@@ -204,6 +206,8 @@ html, body {
         width: 14em;
         outline : none;
         font-size: 20px;
+        background: none;
+        color: #fff;
     }
     .form button, .view-btn button , .order-btn button {
         width: 40%;
@@ -268,7 +272,7 @@ html, body {
         color: #fff;
         border-radius: 50%;
         overflow: hidden;
-    font-size: 1.2em;
+        font-size: 1.2em;
     }
     .edit {
         padding: 5px;

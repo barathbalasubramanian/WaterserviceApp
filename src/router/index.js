@@ -3,6 +3,7 @@ import signUpView from '../views/signupView.vue'
 import signinView from '../views/signinView.vue'
 import ownerView from '../views/ownerView.vue'
 import customerView from '../views/customerView.vue'
+import UpdateorderView from '../views/UpdateorderView.vue'
 
 const routes = [
   {
@@ -19,11 +20,14 @@ const routes = [
     meta: {
       requiresAuth: true
     }
-    
   },
   {
     path : '/customer',
     component : customerView
+  },
+  {
+    path : '/customer/:customerid',
+    component : UpdateorderView
   }
 ]
 
