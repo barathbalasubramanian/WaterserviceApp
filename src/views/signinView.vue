@@ -53,8 +53,10 @@
 			},
 
 		ownerpage(email){
-			if (email === 'barath@gmail.com')
+			if (email === 'barath@gmail.com') {
+				console.log('owner')
 				Router.push('/owner')
+			}
 			else {
 				Router.push('/')
 			}
