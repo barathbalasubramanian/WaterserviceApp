@@ -122,8 +122,8 @@ export default {
                 let dialogue = document.querySelector(".dialogue-box")
                 dialogue.innerHTML = 'Order Placed'
                 dialogue.classList.add('dia-active')
-                setTimeout( () => { dialogue.classList.remove('dia-active') }, 1000)
-                dialogue.innerHTML = null
+                setTimeout( () => { dialogue.classList.remove('dia-active'); dialogue.innerHTML = null}, 1000)
+                
             }
             catch (err) {
                 console.log("error :", err)

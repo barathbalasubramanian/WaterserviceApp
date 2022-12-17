@@ -104,37 +104,11 @@ export default {
                     let dialogue = document.querySelector(".dialogue-box")
                     dialogue.innerHTML = 'Saved successfully'
                     dialogue.classList.add('dia-active')
-                    setTimeout( () => { dialogue.classList.remove('dia-active') }, 1000)
-                    dialogue.innerHTML = null
+                    setTimeout( () => { dialogue.classList.remove('dia-active') ; dialogue.innerHTML = null }, 1000)
                     setTimeout( () => { Router.push('/customer') } , 1500)
                 })
             .catch((err) => { console.log('Error' , err)})
         },
-
-        // Cancel(name, address, ph_num) {
-            
-        //     const postData = {
-        //         name : name,
-        //         address : address,
-        //         ph_num : ph_num,
-        //         count : this.count,
-        //         order : false
-
-        //     };
-
-        //     const updates = {};
-        //     updates[this.email+'/' + this.id+'/'] = postData;
-        //     update(ref(db), updates)
-        //         .then(() => { 
-        //                 let dialogue = document.querySelector(".dialogue-box")
-        //                 dialogue.innerHTML = 'Saved successfully'
-        //                 dialogue.classList.add('dia-active')
-        //                 setTimeout( () => { dialogue.classList.remove('dia-active') }, 1000)
-        //                 dialogue.innerHTML = null
-        //                 setTimeout( () => { Router.push('/customer') } , 1500)
-        //             })
-        //         .catch((err) => { console.log('Error' , err)})
-        //     },
 
         // Cancel() {
         //     const id = this.id
