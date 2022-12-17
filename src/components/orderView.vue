@@ -1,5 +1,11 @@
 <template>
 <div>
+                                    <!---------------- Loading ----------------->
+    <div v-if="isloading">
+        <div class="container">
+            <div class="bar"></div>
+        </div>
+    </div>
                                     <!----------------- ORDER ---------------->
     <div v-if="activeOrder"> 
         <div class="header header-order">Order Here</div>
@@ -11,7 +17,7 @@
                     </label>
                 </div>
                 <div> 
-                    <input type="text" v-model='order.customername' >
+                    <input type="text" v-model='order.customername' placeholder="Name">
                 </div>
             </div>
             <div class='form'>
@@ -21,7 +27,7 @@
                     </label>
                 </div>
                 <div>
-                    <input type="text" v-model="order.address" >
+                    <input type="text" v-model="order.address" placeholder="Address">
                 </div>
             </div>
             <div class='form'>
@@ -31,7 +37,7 @@
                     </label>
                 </div>
                 <div>
-                    <input type="number" v-model="order.ph_num" >
+                    <input type="number" v-model="order.ph_num" placeholder="Mobile num">
                 </div>
             </div>
             <div class='form count'>
@@ -43,7 +49,7 @@
                 <button @click="writeUserData(order.customername,order.address,order.ph_num,this.count)">Order</button>
             </div>
         </form>
-        <div class="view-btn"><button @click="view()">VIEW ORDER</button></div>
+        <div class="view-btn"><button @click="view()">View Order</button></div>
     </div>
 
                                 <!----------------- VIEW ORDER --------------------------->
@@ -82,7 +88,8 @@ export default {
             activeOrder : false,
             activeView : true,
             email : null,
-            count : 1
+            count : 1,
+            isloading : true
         }
     },
     mounted : function() {
@@ -127,7 +134,7 @@ export default {
             if (snapshot.exists()) {
                 console.log(snapshot.val());
                 this.orderDetails.push(snapshot.val())
-                
+                this.isloading = false
             } else {
                 console.log("No data available");
             }
@@ -138,18 +145,22 @@ export default {
 
     view() {
         this.orderDetails = []
+        this.isloading = true 
         this.getuser()
         this.activeView = true
         this.activeOrder = false
         },
+
     Order() {
         this.activeView = false
         this.activeOrder = true
         },
+
     add() {
         let count = document.querySelector('#count')
         this.count = this.count + 1
         },
+        
     subtract() {
         let count = document.querySelector('#count')
         if (this.count > 0) {

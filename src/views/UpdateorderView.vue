@@ -1,51 +1,61 @@
 <template>
-<div v-if="active">
-    <router-link to="/customer">
-        <div class="close"><span class="material-symbols-outlined">close</span></div>
-    </router-link>
+<div>
+    <div v-if="isloading">
+        <div class="container">
+            <div class="bar"></div>
+        </div>
+    </div>
+    <div v-if="active">
+        <router-link to="/customer">
+            <div class="close"><span class="material-symbols-outlined">close</span></div>
+        </router-link>
 
-    <div class="header">Edit Order</div>
-        <form>
-            <div class='form'>
-                <div>
-                    <label>
-                        <span class="material-symbols-outlined">person</span>
-                    </label>
+        <div class="header">Edit Order</div>
+            <form>
+                <div class='form'>
+                    <div>
+                        <label>
+                            <span class="material-symbols-outlined">person</span>
+                        </label>
+                    </div>
+                    <div> 
+                        <input type="text" v-model="order.name" required>
+                    </div>
                 </div>
-                <div> 
-                    <input type="text" v-model="order.name" required>
+                <div class='form'>
+                    <div>
+                        <label> 
+                            <span class="material-symbols-outlined">location_on</span>
+                        </label>
+                    </div>
+                    <div>
+                        <input type="text" v-model="order.address" required>
+                    </div>
                 </div>
-            </div>
-            <div class='form'>
-                <div>
-                    <label> 
-                        <span class="material-symbols-outlined">location_on</span>
-                    </label>
+                <div class='form'>
+                    <div>
+                        <label>
+                            <span class="material-symbols-outlined">call</span>
+                        </label>
+                    </div>
+                    <div>
+                        <input type="number" v-model="order.ph_num" required>
+                    </div>
                 </div>
-                <div>
-                    <input type="text" v-model="order.address" required>
+                <div class='form count'>
+                    <button @click="subtract()"><span class="material-symbols-outlined">remove</span></button>
+                    <div id="count" style="color: #fff">{{ this.count }}</div>
+                    <button @click="add()"><span class="material-symbols-outlined">add</span></button>
                 </div>
-            </div>
-            <div class='form'>
-                <div>
-                    <label>
-                        <span class="material-symbols-outlined">call</span>
-                    </label>
+                <div class='form btn'>
+                    <button @click="editOrder(order.name , order.address , order.ph_num )">Save</button>
+                    <button @click="Cancel()">Cancel</button>
                 </div>
-                <div>
-                    <input type="number" v-model="order.ph_num" required>
-                </div>
-            </div>
-            <div class='form count'>
-                <button @click="subtract()"><span class="material-symbols-outlined">remove</span></button>
-                <div id="count" style="color: #fff">{{ this.count }}</div>
-                <button @click="add()"><span class="material-symbols-outlined">add</span></button>
-            </div>
-            <div class='form btn'>
-                <button @click="editOrder(order.name , order.address , order.ph_num )">Save</button>
-                <button @click="Cancel()">Cancel</button>
-            </div>
-        </form>
+            </form>
+    </div>
+    <div class="dialogue-box">
+        <span></span>
+    </div>
 </div>
 </template>
 
@@ -55,7 +65,7 @@ import { useRoute } from 'vue-router'
 import { child, get , ref , update ,remove } from "firebase/database";
 import { auth , dbref , db } from "../firebase"
 import { onAuthStateChanged } from "firebase/auth";
-
+import Router from '../router'
 
 export default {
     data(){
@@ -65,10 +75,11 @@ export default {
             email : null,
             active : false,
             count : null,
-            id : null
+            id : null,
+            isloading : true
         }
     },
-    
+
     mounted : function() {
         this.getuser()
     },
@@ -86,7 +97,30 @@ export default {
 
         const updates = {};
         updates[this.email+'/' + this.id+'/'] = postData;
-        return update(ref(db), updates);
+        update(ref(db), updates)
+            .then(() => { 
+                    let dialogue = document.querySelector(".dialogue-box")
+                    dialogue.innerHTML = 'Saved successfully'
+                    dialogue.classList.add('dia-active')
+                    setTimeout( () => { dialogue.classList.remove('dia-active') }, 1000)
+                    setTimeout( () => { Router.push('/customer') } , 1500)
+                })
+            .catch((err) => { console.log('Error' , err)})
+        },
+
+        Cancel() {
+            const id = this.id
+            const delRef = ref(db, this.email+'/' + this.id+'/' )
+
+            remove(delRef)
+                .then(() => {
+                        let dialogue = document.querySelector(".dialogue-box")
+                        dialogue.innerHTML = 'Order Cancelled'
+                        dialogue.classList.add('dia-active')
+                        setTimeout( () => { dialogue.classList.remove('dia-active') }, 1000)
+                        setTimeout( () => { Router.push('/customer') } , 1500)
+                    })
+                .catch((err) => { console.log("error : " ,err)})
         },
 
         getuser(){
@@ -113,6 +147,7 @@ export default {
                 this.order.address = this.currOrder[0]['address']
                 this.order.ph_num = this.currOrder[0]['ph_num']
                 this.count = this.currOrder[0]['count']
+                this.isloading = false
                 this.active = true
                 
             } else {

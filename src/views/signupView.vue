@@ -1,38 +1,36 @@
 <template>
 <div>
-
-  <div class="free"></div>
-  <div class="sign_up">
+  <div class="auth">
     <div class="card">SIGN UP</div>
     <form @submit.prevent='signup()' >
-      <div class="input" >
-        <input class="field" type="text" v-model="form.name" required><br>
-        <label class="label">USERNAME</label>
-        <div class="req0"></div>
-      </div>
-      <div class="input">
-        <input class="field" type="name" v-model="form.email" required><br>
-        <label class="label">EMAIL</label>
-        <div class="req1"></div>
-      </div>
-      <div class="input">
-        <input class='field' type="password" v-model="form.pass1" required><br> 
-        <label class="label">PASSWORD</label>
-        <div class="req2"></div>
-      </div>
-      <div class="input" >
-		<input class='field' type="password" v-model="form.pass2" required><br> 
-        <label class="label">CONFORM PASSWORD</label>
-        <div class="req3"></div>
-      </div>
-      <div class="btn">
-        <button type="submit">Signup</button>
-        <router-link to='/signin'><button type="submit" class="button">Sign in</button></router-link>
-      </div>
+      	<div class="input" >
+      	  	<input class="field" type="text" v-model="form.name" required><br>
+      	  	<label class="label">USERNAME</label>
+      	  	<div class="req0"></div>
+      	</div>
+      	<div class="input">
+      	  	<input class="field" type="name" v-model="form.email" required><br>
+      	  	<label class="label">EMAIL</label>
+      	  	<div class="req1"></div>
+      	</div>
+      	<div class="input">
+      	  	<input class='field' type="password" v-model="form.pass1" required><br> 
+      	  	<label class="label">PASSWORD</label>
+      	  	<div class="req2"></div>
+      	</div>
+      	<div class="input" >
+			      <input class='field' type="password" v-model="form.pass2" required><br> 
+      	  	<label class="label">CONFORM PASSWORD</label>
+      	  	<div class="req3"></div>
+      	</div>
+      	<div class="btn">
+      	  	<button type="submit">Signup</button>
+      	  	<router-link to='/signin'><button type="submit" class="button">Sign in</button></router-link>
+      	</div>
     </form>
   </div>
-  
 </div>
+
 </template>
 
 <script>
@@ -94,103 +92,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-  *::-webkit-scrollbar{
-	display: none;
-  }
-  .sign_up {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-items: center;
-    row-gap: 1em;
-    margin: auto;
-    padding: 2em;
-    width: auto;
-    height: fit-content;
-    background-color: #002233;
-    height:35.25em
-  }
-  .card {
-    font-size: 3em;
-    color: #0066FF;
-    margin-bottom: 1em;
-  }
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  input{
-    width: 30em;
-    outline: none;
-    border-radius: 10px;
-    padding: .80em 1.75em;
-    background-color: #002233;
-    border: 1px solid gray;
-    color: white;
-  }
-  .btn {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-  button {
-    border: none;
-    padding: 10px 20px;
-    font-size: 1.3em;
-    text-decoration: none;
-    background-color: #0066FF;
-  }
-  .button {
-    background-color: #002233;
-    color:#0066FF;
-  }
-  .button:hover {
-    background-color: #0066FF;
-    color: #002233;
-    transition: cubic-bezier(0.55, 0.085, 0.68, 0.53)s;
-  }
-  .input {
-    display: flex;
-    flex-direction: column;
-  }
-  input:focus {
-    border: 1px solid #0066FF;
-  }
-  label {
-    position: absolute;
-    font-size: .8em;
-    padding: .3em 0 0 .7em;
-    color: gray;
-    margin-left: .5em;
-  }
-  input:focus ~ label,input:valid ~ label
-  {
-    color: #0066FF;
-    padding: 0 .5em;
-    transform: translateX(10px) translateY(-10px);
-    background-color: #002233;
-    letter-spacing: .1em;
-    transition: .5s;
-    border-left:1px solid #0066FF ;
-    border-right:1px solid #0066FF ;
-  }
-  .reqfield {
-    color:red;
-    height: 10%;
-    margin-top: -10px;
-    margin-left: 10px;
-    margin-bottom: 20px;
-  }
-  @media only screen and (max-width:600px) {
-    input {
-      width: 20em;
-    }
-    .sign_up {
-      margin-top: -10px;
-      height: 35.5em;
-    }
-  }
-</style>
