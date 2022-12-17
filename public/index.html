@@ -15,6 +15,7 @@
 </html>
 
 <style>
+
     @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;1,200&display=swap');
     body::-webkit-scrollbar {
         display: none;
@@ -173,7 +174,7 @@
         height: 100vh;
     }
     .card {
-        font-size: 3em;
+        font-size: 2.5em;
         color: #0066FF;
         margin-bottom: 1em;
     }
@@ -202,6 +203,7 @@
         font-size: 1.3em;
         text-decoration: none;
         background-color: #0066FF;
+        outline: none;
     }
     .button {
         background-color: #002233;
@@ -216,7 +218,7 @@
         display: flex;
         flex-direction: column;
     }
-    input:focus {
+    .input input:focus {
         border: 1px solid #0066FF;
     }
     .input label {
@@ -226,7 +228,7 @@
         color: gray;
         margin-left: .5em;
     }
-    input:focus ~ label,input:valid ~ label
+    .input input:focus ~ label,.input input:valid ~ label
     {
         color: #0066FF;
         padding: 0 .5em;
@@ -237,14 +239,56 @@
         border-left:1px solid #0066FF ;
         border-right:1px solid #0066FF ;
     }
+    input {
+        outline: none;
+    }
+    .reqfield {
+        color: red;
+        margin: 0 0 12px 0;
+    }
 
     @media only screen and (max-width:600px) {
         .input input {
-        width: 20em;
+            width: 20em;
         }
         .auth {
             height: 90vh;
         }
+    }
+    .main-div {
+        margin-top: 10vh;
+        overflow: scroll;
+        background-color: #232323;
+    }
+    .sub-div {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        background-color: #343434;
+        padding: 12px;
+        margin: 1em;
+        border-radius: 15px 0px 15px 15px;
+        color: #fff;
+    }
+    .orders {
+        position: absolute;
+        bottom: -1px;
+        right: -1px;
+        padding: 8px 16px;
+        background-color: #1a87f4;
+        color: #fff;
+        border-radius: 50%;
+        overflow: hidden;
+        font-size: 1.2em;
+    }
+    .edit {
+        padding: 5px;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    .cancelled {
+        color: red;
     }
 
 </style>

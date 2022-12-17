@@ -48,8 +48,8 @@
                     <button @click="add()"><span class="material-symbols-outlined">add</span></button>
                 </div>
                 <div class='form btn'>
-                    <button @click="editOrder(order.name , order.address , order.ph_num )">Save</button>
-                    <button @click="Cancel()">Cancel</button>
+                    <button @click="editOrder(order.name , order.address , order.ph_num , this.ORDER = true)">Save</button>
+                    <button @click="editOrder(order.name , order.address , order.ph_num  , this.ORDER = false)">Cancel</button>
                 </div>
             </form>
     </div>
@@ -76,7 +76,8 @@ export default {
             active : false,
             count : null,
             id : null,
-            isloading : true
+            isloading : true,
+            ORDER : true
         }
     },
 
@@ -86,12 +87,13 @@ export default {
 
     methods :
     {   
-        editOrder(name, address, ph_num) {
+        editOrder(name, address, ph_num , ORDER) {
         const postData = {
             name : name,
             address : address,
             ph_num : ph_num,
-            count : this.count
+            count : this.count,
+            ORDER : this.ORDER
 
         };
 
@@ -103,25 +105,52 @@ export default {
                     dialogue.innerHTML = 'Saved successfully'
                     dialogue.classList.add('dia-active')
                     setTimeout( () => { dialogue.classList.remove('dia-active') }, 1000)
+                    dialogue.innerHTML = null
                     setTimeout( () => { Router.push('/customer') } , 1500)
                 })
             .catch((err) => { console.log('Error' , err)})
         },
 
-        Cancel() {
-            const id = this.id
-            const delRef = ref(db, this.email+'/' + this.id+'/' )
+        // Cancel(name, address, ph_num) {
+            
+        //     const postData = {
+        //         name : name,
+        //         address : address,
+        //         ph_num : ph_num,
+        //         count : this.count,
+        //         order : false
 
-            remove(delRef)
-                .then(() => {
-                        let dialogue = document.querySelector(".dialogue-box")
-                        dialogue.innerHTML = 'Order Cancelled'
-                        dialogue.classList.add('dia-active')
-                        setTimeout( () => { dialogue.classList.remove('dia-active') }, 1000)
-                        setTimeout( () => { Router.push('/customer') } , 1500)
-                    })
-                .catch((err) => { console.log("error : " ,err)})
-        },
+        //     };
+
+        //     const updates = {};
+        //     updates[this.email+'/' + this.id+'/'] = postData;
+        //     update(ref(db), updates)
+        //         .then(() => { 
+        //                 let dialogue = document.querySelector(".dialogue-box")
+        //                 dialogue.innerHTML = 'Saved successfully'
+        //                 dialogue.classList.add('dia-active')
+        //                 setTimeout( () => { dialogue.classList.remove('dia-active') }, 1000)
+        //                 dialogue.innerHTML = null
+        //                 setTimeout( () => { Router.push('/customer') } , 1500)
+        //             })
+        //         .catch((err) => { console.log('Error' , err)})
+        //     },
+
+        // Cancel() {
+        //     const id = this.id
+        //     const delRef = ref(db, this.email+'/' + this.id+'/' )
+
+        //     remove(delRef)
+        //         .then(() => {
+        //                 let dialogue = document.querySelector(".dialogue-box")
+        //                 dialogue.innerHTML = 'Order Cancelled'
+        //                 dialogue.classList.add('dia-active')
+        //                 setTimeout( () => { dialogue.classList.remove('dia-active') }, 1000)
+        //                 dialogue.innerHTML = null
+        //                 setTimeout( () => { Router.push('/customer') } , 1500)
+        //             })
+        //         .catch((err) => { console.log("error : " ,err)})
+        // },
 
         getuser(){
             onAuthStateChanged(auth, (user) => {

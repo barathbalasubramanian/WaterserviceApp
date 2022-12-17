@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="auth">
-    <div class="card">SIGN UP</div>
+    <div class="card">Create Account</div>
     <form @submit.prevent='signup()' >
       	<div class="input" >
       	  	<input class="field" type="text" v-model="form.name" required><br>

@@ -57,8 +57,12 @@
         <div class="header">Your Order</div>
         <div v-for="( data, id ) in this.orderDetails" :key= 'id'  class="main-div">
             <div v-for='( i , index) in data' :key="index" class="sub-div"> 
-
-                <router-link :to='`/customer/${index}`'><span class="material-symbols-outlined edit" style="color: #fff">edit</span></router-link>
+                
+                
+                <router-link :to='`/customer/${index}`' v-if = 'i.ORDER'>
+                    <span class="material-symbols-outlined edit" style="color: #fff">edit</span>
+                </router-link>
+                <span v-if = "i.ORDER != this.ORDER" class="edit cancelled">Cancelled</span>
                 <div style="color: #1a87f4">{{i.name}}</div>
                 <div style="width: 12em;">{{i.address}}</div>
                 <div>{{i.ph_num}}</div>
@@ -67,6 +71,10 @@
             </div>
         </div>
         <div class="order-btn"><button @click="Order()">Place Order</button></div>
+    </div>
+
+    <div class="dialogue-box">
+        <span></span>
     </div>
 
 </div>
@@ -78,7 +86,6 @@ import { ref, set , child, get} from "firebase/database";
 import { db , auth , dbref } from "../firebase"
 import { onAuthStateChanged } from "firebase/auth";
 
-
 export default {
     
     data() {
@@ -89,7 +96,8 @@ export default {
             activeView : true,
             email : null,
             count : 1,
-            isloading : true
+            isloading : true,
+            ORDER : true
         }
     },
     mounted : function() {
@@ -104,12 +112,18 @@ export default {
                     name: customername,
                     address : address,
                     ph_num : ph_num,
-                    count : count
+                    count : count,
+                    ORDER : false
                 });
                 this.order.customername = ''
                 this.order.address = ''
                 this.order.ph_num = ''
                 this.count = 1
+                let dialogue = document.querySelector(".dialogue-box")
+                dialogue.innerHTML = 'Order Placed'
+                dialogue.classList.add('dia-active')
+                setTimeout( () => { dialogue.classList.remove('dia-active') }, 1000)
+                dialogue.innerHTML = null
             }
             catch (err) {
                 console.log("error :", err)
@@ -137,6 +151,7 @@ export default {
                 this.isloading = false
             } else {
                 console.log("No data available");
+                this.isloading = false
             }
             }).catch((error) => {
             console.error(error);
@@ -199,38 +214,6 @@ export default {
         width: 100%;
         z-index: 999;
         background-color: transparent;
-    }
-    .main-div {
-        margin-top: 10vh;
-        overflow: scroll;
-        background-color: #232323;
-    }
-    .sub-div {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        background-color: #343434;
-        padding: 12px;
-        margin: 1em;
-        border-radius: 15px 0px 15px 15px;
-        color: #fff;
-    }
-    .orders {
-        position: absolute;
-        bottom: -1px;
-        right: -1px;
-        padding: 8px 16px;
-        background-color: #1a87f4;
-        color: #fff;
-        border-radius: 50%;
-        overflow: hidden;
-        font-size: 1.2em;
-    }
-    .edit {
-        padding: 5px;
-        position: absolute;
-        top: 0;
-        right: 0;
     }
     
 </style>
