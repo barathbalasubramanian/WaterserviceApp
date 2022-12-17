@@ -1,11 +1,15 @@
 <template>
 <div>
-                                    <!---------------- Loading ----------------->
+                                    <!---------------- Loading ------------->
     <div v-if="isloading">
         <div class="container">
             <div class="bar"></div>
         </div>
     </div>
+                                    <!---------------- No order yet  ------------->
+    <div v-if="noOrder">
+        <down-arrow/>
+    </div>  
                                     <!----------------- ORDER ---------------->
     <div v-if="activeOrder"> 
         <div class="header header-order">Order Here</div>
@@ -52,7 +56,7 @@
         <div class="view-btn"><button @click="view()">View Order</button></div>
     </div>
 
-                                <!----------------- VIEW ORDER --------------------------->
+                                    <!----------------- VIEW ORDER ------------>
     <div v-if="activeView">
         <div class="header">Your Order</div>
         <div v-for="( data, id ) in this.orderDetails" :key= 'id'  class="main-div">
@@ -85,6 +89,8 @@
 import { ref, set , child, get} from "firebase/database";
 import { db , auth , dbref } from "../firebase"
 import { onAuthStateChanged } from "firebase/auth";
+import Router from '../router'
+import downArrow from '../components/downArrow.vue'
 
 export default {
     
@@ -97,9 +103,14 @@ export default {
             email : null,
             count : 1,
             isloading : true,
-            ORDER : true
+            ORDER : true,
+            noOrder : false
         }
     },
+    components : {
+        downArrow
+    },
+
     mounted : function() {
         this.getuser()
     },
@@ -113,8 +124,9 @@ export default {
                     address : address,
                     ph_num : ph_num,
                     count : count,
-                    ORDER : false
+                    ORDER : true
                 });
+                
                 this.order.customername = ''
                 this.order.address = ''
                 this.order.ph_num = ''
@@ -138,6 +150,7 @@ export default {
                     this.getData(this.email)
                 } else {
                   console.log("Can't get user e-mail")
+                  Router.push('/signup')
                 }
             });
         },
@@ -149,17 +162,20 @@ export default {
                 console.log(snapshot.val());
                 this.orderDetails.push(snapshot.val())
                 this.isloading = false
+                this.noOrder = false
             } else {
                 console.log("No data available");
                 this.isloading = false
+                this.noOrder = true
             }
             }).catch((error) => {
-            console.error(error);
+                console.error(error);
             });
         },
 
     view() {
         this.orderDetails = []
+        this.noOrder = false
         this.isloading = true 
         this.getuser()
         this.activeView = true
@@ -168,6 +184,7 @@ export default {
 
     Order() {
         this.activeView = false
+        this.noOrder = false
         this.activeOrder = true
         },
 
@@ -214,6 +231,24 @@ export default {
         width: 100%;
         z-index: 999;
         background-color: transparent;
+    }
+    .noOrder {
+        color: #fff;
+        margin: 5em 0 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        scale: 1;
+        transition: 1s;
+    }
+    .placeOrder {
+        position: absolute;
+        bottom: 20%;
+        left: 25%;
+        color: #fff;
+        transition: .35s;
+        scale: 1;
+
     }
     
 </style>

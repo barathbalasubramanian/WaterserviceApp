@@ -4,11 +4,13 @@ import signinView from '../views/signinView.vue'
 import ownerView from '../views/ownerView.vue'
 import customerView from '../views/customerView.vue'
 import UpdateorderView from '../views/UpdateorderView.vue'
+import { getAuth , onAuthStateChanged } from 'firebase/auth'
+import Router from '../router'
 
 const routes = [
   {
     path: '/',
-    component : signUpView
+    component : customerView
   },
   {
     path: '/signin',
@@ -22,8 +24,8 @@ const routes = [
     }
   },
   {
-    path : '/customer',
-    component : customerView
+    path : '/signup',
+    component : signUpView
   },
   {
     path : '/customer/:id',
@@ -32,24 +34,35 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
-  routes
+	history: createWebHashHistory(),
+	routes
+  })
+
+const getCurrentUser = () => {
+	return Promise( (resolve,reject)  => {
+		const removeListener =  onAuthStateChanged(
+			getAuth(),
+			(user) => { removeListener(); console.log("USER : ",user); resolve(user) },
+			reject
+		)
+	});
+}
+
+router.beforeEach(async(to, from ,next) => {
+	if (to.matched.some((record) => record.meta.requiresAuth)) {
+		
+		if (await getCurrentUser()) {
+			console.log('ok')
+			// next()
+		} else {
+			alert('Create Your account');
+			// next('/')
+		}
+	} else {
+
+		console.log('NOT AUTH')
+		next()
+	}
 })
-
-// router.beforeEach((to, from) => {
-//   if (to.meta.requiresAuth && !auth.isLoggedIn()) {
-//     return {
-//       path: '/customer',
-//       query: { redirect: to.fullPath },
-//     }
-//   }
-// })
-
-// router.beforeEach(async (to, from) => {
-//   if ( !isAuthenticated && to.name !== 'Login' ) 
-//   {
-//     return { name: 'Login' }
-//   }
-// })
 
 export default router

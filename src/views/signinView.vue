@@ -26,8 +26,8 @@
 	</div>
 </template>
 
-	<script>
-	import {signInWithEmailAndPassword } from "firebase/auth";
+<script>
+	import { signInWithEmailAndPassword } from "firebase/auth";
 	import { auth } from '@/firebase.js'
 	import Router from '../router'
 
@@ -39,24 +39,26 @@
 		}
 	},
 	methods: {
+
 		signin(){
-		signInWithEmailAndPassword(auth, this.form.email, this.form.password)
-		.then((userCredential) => {
-			const user = userCredential.user;
-			this.ownerpage(user.email)
-		})
-		.catch((error) => {
-			let err = document.querySelector('.reqfield')
-			err.innerHTML = 'E-mail or Password is incorrect'
-		});
-		},
+			signInWithEmailAndPassword(auth, this.form.email, this.form.password)
+			.then((userCredential) => {
+				const user = userCredential.user;
+				this.ownerpage(user.email)
+			})
+			.catch((error) => {
+				let err = document.querySelector('.reqfield')
+				err.innerHTML = 'E-mail or Password is incorrect'
+			});
+			},
+
 		ownerpage(email){
 			if (email === 'barath@gmail.com')
 				Router.push('/owner')
 			else {
-				Router.push('/customer')
+				Router.push('/')
 			}
 		}
 	},
 	}
-	</script>
+</script>

@@ -62,7 +62,7 @@
 <script>
 
 import { useRoute } from 'vue-router'
-import { child, get , ref , update ,remove } from "firebase/database";
+import { child, get , ref , update } from "firebase/database";
 import { auth , dbref , db } from "../firebase"
 import { onAuthStateChanged } from "firebase/auth";
 import Router from '../router'
@@ -105,7 +105,7 @@ export default {
                     dialogue.innerHTML = 'Saved successfully'
                     dialogue.classList.add('dia-active')
                     setTimeout( () => { dialogue.classList.remove('dia-active') ; dialogue.innerHTML = null }, 1000)
-                    setTimeout( () => { Router.push('/customer') } , 1500)
+                    setTimeout( () => { Router.push('/') } , 1500)
                 })
             .catch((err) => { console.log('Error' , err)})
         },
@@ -134,6 +134,7 @@ export default {
                     this.getData(this.email)
                 } else {
                   console.log("Can't get user e-mail")
+                  Router.push('/signup')
                 }
             });
         },
