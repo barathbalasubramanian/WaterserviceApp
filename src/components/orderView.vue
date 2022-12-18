@@ -57,27 +57,49 @@
     </div>
 
                                     <!----------------- VIEW ORDER ------------>
-    <div v-if="activeView">
+    <div v-if="activeView" class="view-ord"> 
         <div>
-            <div class="header">Your Order</div>
-            <div class="logout-btn" @click='logout()'><span class="material-symbols-outlined">logout</span></div>
-        </div>
-        
-        <div v-for="( data, id ) in this.orderDetails" :key= 'id'  class="main-div">
-            <div v-for='( i , index) in data' :key="index" class="sub-div"> 
-                
-                <router-link :to='`/customer/${index}`' v-if = 'i.ORDER'>
-                    <span class="material-symbols-outlined edit" style="color: #fff">edit</span>
-                </router-link>
-                <span v-if = "i.ORDER != this.ORDER" class="edit cancelled">Cancelled</span>
-                <div style="color: #1a87f4">{{i.name}}</div>
-                <div style="width: 12em;">{{i.address}}</div>
-                <div>{{i.ph_num}}</div>
-                <div class="orders">{{i.count}}</div>
+            <div>
+                <div class="header">Your Order</div>
+                <div class="logout-btn" @click='logout()'><span class="material-symbols-outlined">logout</span></div>
+            </div>
+            
+            <div v-for="( data, id ) in this.orderDetails" :key= 'id'  class="main-div">
+                <div v-for='( i , index) in data' :key="index" > 
+                    
+                    <div v-if="i.ORDER" class="sub-div"> 
+                        <router-link :to='`/customer/${index}`' v-if = 'i.ORDER'>
+                            <span class="material-symbols-outlined edit" style="color: #fff">edit</span>
+                        </router-link>
+                        <span v-if = "i.ORDER != this.ORDER" class="edit cancelled">Cancelled</span>
+                        <div style="color: #1a87f4">{{i.name}}</div>
+                        <div style="width: 12em;">{{i.address}}</div>
+                        <div>{{i.ph_num}}</div>
+                        <div class="orders">{{i.count}}</div>
+                    </div>
 
+                </div>
+            </div>
+            <div class="order-btn"><button @click="Order()">Place Order</button></div>
+        </div>
+        <div>
+            <div v-for="( data, id ) in this.orderDetails" :key= 'id'  class="main-div">
+                <div v-for='( i , index) in data' :key="index" > 
+
+                    <div v-if = 'i.ORDER != this.ORDER' class="sub-div">
+                        <router-link :to='`/customer/${index}`' v-if = 'i.ORDER'>
+                            <span class="material-symbols-outlined edit" style="color: #fff">edit</span>
+                        </router-link>
+                        <span v-if = "i.ORDER != this.ORDER" class="edit cancelled">Cancelled</span>
+                        <div style="color: #1a87f4">{{i.name}}</div>
+                        <div style="width: 12em;">{{i.address}}</div>
+                        <div>{{i.ph_num}}</div>
+                        <div class="orders">{{i.count}}</div>
+                    </div>
+
+                </div>
             </div>
         </div>
-        <div class="order-btn"><button @click="Order()">Place Order</button></div>
     </div>
 
     <div class="dialogue-box">
@@ -273,6 +295,26 @@ export default {
     .logout-btn span {
         font-size: 2em;
     }
-    
+    .main-div {
+        width: 100vw;
+        max-height: 90vh;
+    }
+    .view-ord {
+        width: 100vw;
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+    }
+    .view-ord :nth-child(1) , .view-ord :nth-child(2) {
+        scroll-snap-align: end;
+    }
+    .next-page {
+        margin-top:10vh ;
+        color: white;
+        min-width: 100vw;
+        height: auto;
+        background-color: red;
+    }
+
 </style>
 
