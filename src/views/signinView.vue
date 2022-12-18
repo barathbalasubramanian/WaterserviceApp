@@ -1,6 +1,5 @@
 <template>
 	<div>
-
 		<div class="auth">
 			<div class="card">SIGN IN</div>
 			<form @submit.prevent="signin()">

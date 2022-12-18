@@ -58,7 +58,11 @@
 
                                     <!----------------- VIEW ORDER ------------>
     <div v-if="activeView">
-        <div class="header">Your Order</div>
+        <div>
+            <div class="header">Your Order</div>
+            <div class="logout-btn" @click='logout()'><span class="material-symbols-outlined">logout</span></div>
+        </div>
+        
         <div v-for="( data, id ) in this.orderDetails" :key= 'id'  class="main-div">
             <div v-for='( i , index) in data' :key="index" class="sub-div"> 
                 
@@ -164,6 +168,7 @@ export default {
                 this.isloading = false
                 this.noOrder = false
             } else {
+                if (this.email === 'barath') { Router.push("/signup") }
                 console.log("No data available");
                 this.isloading = false
                 this.noOrder = true
@@ -198,8 +203,16 @@ export default {
         if (this.count > 0) {
             this.count = this.count - 1
             }   
-        }
+        },
+    logout() {
+        const logoutBtn = document.querySelector('.logout-btn');
+        logoutBtn.addEventListener('click', e => {
+        e.preventDefault();
+        auth.signOut();
+        console.log('User signed out!');
+        })
     }
+    } 
 }
 
 </script>
@@ -249,6 +262,17 @@ export default {
         transition: .35s;
         scale: 1;
 
+    }
+    .logout-btn {
+        position: fixed;
+        top: 0;
+        z-index: 999;
+        right: 0;
+        color: #1a87f4;
+        padding: 16px;
+    }
+    .logout-btn span {
+        font-size: 2em;
     }
     
 </style>
