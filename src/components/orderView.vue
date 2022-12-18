@@ -45,9 +45,9 @@
                 </div>
             </div>
             <div class='form count'>
-                <button @click="subtract()"><span class="material-symbols-outlined">remove</span></button>
+                <div @click="subtract()"><span class="material-symbols-outlined">remove</span></div>
                 <div id="count" style="color: #fff">{{ this.count }}</div>
-                <button @click="add()"><span class="material-symbols-outlined">add</span></button>
+                <div @click="add()"><span class="material-symbols-outlined">add</span></div>
             </div>
             <div class='form'>
                 <button @click="writeUserData(order.customername,order.address,order.ph_num,this.count)">Order</button>
@@ -65,7 +65,6 @@
         
         <div v-for="( data, id ) in this.orderDetails" :key= 'id'  class="main-div">
             <div v-for='( i , index) in data' :key="index" class="sub-div"> 
-                
                 
                 <router-link :to='`/customer/${index}`' v-if = 'i.ORDER'>
                     <span class="material-symbols-outlined edit" style="color: #fff">edit</span>
