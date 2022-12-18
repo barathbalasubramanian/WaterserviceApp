@@ -189,7 +189,7 @@ export default {
                 this.isloading = false
                 this.noOrder = false
             } else {
-                if (this.email === 'barath') { Router.push("/signup") }
+                if (this.email === 'barath') { Router.push("/owner") }
                 console.log("No data available");
                 this.isloading = false
                 this.noOrder = true
