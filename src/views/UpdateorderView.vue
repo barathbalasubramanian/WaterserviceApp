@@ -6,7 +6,7 @@
         </div>
     </div>
     <div v-if="active">
-        <router-link to="/customer">
+        <router-link to="/">
             <div class="close"><span class="material-symbols-outlined">close</span></div>
         </router-link>
 
@@ -43,9 +43,9 @@
                     </div>
                 </div>
                 <div class='form count'>
-                    <button @click="subtract()"><span class="material-symbols-outlined">remove</span></button>
+                    <div @click="subtract()"><span class="material-symbols-outlined" style="color: #fff">remove</span></div>
                     <div id="count" style="color: #fff">{{ this.count }}</div>
-                    <button @click="add()"><span class="material-symbols-outlined">add</span></button>
+                    <div @click="add()"><span class="material-symbols-outlined" style="color: #fff">add</span></div>
                 </div>
                 <div class='form btn'>
                     <button @click="editOrder(order.name , order.address , order.ph_num , this.ORDER = true)">Save</button>
@@ -102,10 +102,10 @@ export default {
         update(ref(db), updates)
             .then(() => { 
                     let dialogue = document.querySelector(".dialogue-box")
-                    dialogue.innerHTML = 'Saved successfully'
+                    if (ORDER) { dialogue.innerHTML = 'Saved successfully' } else { dialogue.innerHTML = 'Order Cancelled' ; console.log("cancelled") }
                     dialogue.classList.add('dia-active')
-                    setTimeout( () => { dialogue.classList.remove('dia-active') ; dialogue.innerHTML = null }, 1000)
-                    setTimeout( () => { Router.push('/') } , 1500)
+                    setTimeout( () => { dialogue.classList.remove('dia-active') ; dialogue.innerHTML = null }, 500)
+                    setTimeout( () => { Router.push('/') } , 750) 
                 })
             .catch((err) => { console.log('Error' , err)})
         },
@@ -121,7 +121,7 @@ export default {
         //                 dialogue.classList.add('dia-active')
         //                 setTimeout( () => { dialogue.classList.remove('dia-active') }, 1000)
         //                 dialogue.innerHTML = null
-        //                 setTimeout( () => { Router.push('/customer') } , 1500)
+        //                 setTimeout( () => { Router.push('/') } , 1500)
         //             })
         //         .catch((err) => { console.log("error : " ,err)})
         // },
