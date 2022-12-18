@@ -45,9 +45,9 @@
                 </div>
             </div>
             <div class='form count'>
-                <div @click="subtract()"><span class="material-symbols-outlined">remove</span></div>
+                <div @click="subtract()"><span class="material-symbols-outlined" style="color; #fff">remove</span></div>
                 <div id="count" style="color: #fff">{{ this.count }}</div>
-                <div @click="add()"><span class="material-symbols-outlined">add</span></div>
+                <div @click="add()"><span class="material-symbols-outlined" style="color; #fff">add</span></div>
             </div>
             <div class='form'>
                 <button @click="writeUserData(order.customername,order.address,order.ph_num,this.count)">Order</button>
