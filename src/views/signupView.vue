@@ -20,12 +20,12 @@
 		</div>
 		<div class="input" >
 				<input class='field' type="password" v-model="form.pass2" required><br> 
-			<label class="label">CONFORM PASSWORD</label>
+			<label class="label">CONFIRM PASSWORD</label>
 			<div class="req3"></div>
 		</div>
 		<div class="btn">
 			<button type="submit">Signup</button>
-			<router-link to='/signin'><button type="submit" class="button">Sign in</button></router-link>
+			<router-link to='/signin'><button type="submit" class="button">Signin</button></router-link>
 		</div>
 	</form>
 </div>
