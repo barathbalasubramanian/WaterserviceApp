@@ -315,6 +315,9 @@ export default {
         height: auto;
         background-color: red;
     }
+    .view-btn {
+        position: absolute;
+    }
 
 </style>
 
