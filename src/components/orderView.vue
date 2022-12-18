@@ -50,7 +50,7 @@
                 <div @click="add()"><span class="material-symbols-outlined" style="color: #fff">add</span></div>
             </div>
             <div class='form'>
-                <button @click="writeUserData(order.customername,order.address,order.ph_num,this.count)">Order</button>
+                <button @click="writeUserData(order.customername,order.address,order.ph_num,this.count)" style="width: 90% ; margin: auto">Order</button>
             </div>
         </form>
         <div class="view-btn"><button @click="view()">View Order</button></div>
