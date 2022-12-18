@@ -25,7 +25,7 @@
 		</div>
 		<div class="btn">
 			<button type="submit">Signup</button>
-			<router-link to='/signin'><button type="submit" class="button">Signin</button></router-link>
+			<router-link to='/signin'><button type="submit" class="button">Sign-in</button></router-link>
 		</div>
 	</form>
 </div>
