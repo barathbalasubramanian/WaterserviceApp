@@ -317,6 +317,7 @@ export default {
     }
     .view-btn {
         position: absolute;
+        z-index: -999;
     }
 
 </style>
